@@ -25,4 +25,5 @@ SpacesInContainerLiterals: true
 SpacesInSquareBrackets: false
 SpacesInParentheses: false
 AccessModifierOffset: -4
+Cpp11BracedListStyle: false
 ---

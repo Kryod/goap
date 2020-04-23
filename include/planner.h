@@ -8,6 +8,19 @@
 
 class Planner {
 public:
+    /**
+     * ### Brief
+     * Plan what sequence of actions can fulfill the passed `goals`
+     *
+     * ### Param
+     * **agent** the agent that would perform the actions
+     * **actions** a list of available actions
+     * **state** an initial state
+     * **goals** a set of goals to achieve
+     *
+     * ### Return
+     * A `std::queue` of `Action*`s to perform in order to achieve the `goals` state
+     */
     static std::queue<Action*>
     plan(void* agent, std::unordered_set<Action*> actions,
          const std::unordered_set<std::string>& state,
@@ -25,7 +38,9 @@ private:
         Action* action;
     };
 
-    static bool buildGraph(const Node& parent, std::vector<Node>& leaves,
+    static bool buildGraph(Node& parent, std::vector<Node>& leaves,
                            const std::unordered_set<Action*>& actions,
                            const std::unordered_set<std::string>& goals);
+    static bool containsAll(const std::unordered_set<std::string>& items,
+                            const std::unordered_set<std::string>& state);
 };

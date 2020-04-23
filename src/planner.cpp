@@ -40,33 +40,55 @@ Planner::plan(void* agent, std::unordered_set<Action*> actions,
     return queue;
 }
 
-bool Planner::buildGraph(const Node& parent, std::vector<Node>& leaves,
+bool Planner::buildGraph(Node& parent, std::vector<Node>& leaves,
                          const std::unordered_set<Action*>& actions,
                          const std::unordered_set<std::string>& goals) {
     bool foundOne = false;
 
     for (Action* action : actions) {
-        /*if (Planner::containsAll(action->getPreconditions(), parent.state)) {
-            std::unordered_set<std::string> currentState =
-                populate(parent.state, action->getEffects());
-            Node node(&parent, parent.totalCost + action.getCost(),
+        if (Planner::containsAll(action->getPreconditions(), parent.state)) {
+            std::unordered_set<std::string> currentState(parent.state);
+            for (const std::string& effect : action->getEffects()) {
+                currentState.insert(effect);
+            }
+            Node node(&parent, parent.totalCost + action->getCost(),
                       currentState, action);
 
             if (Planner::containsAll(goals, currentState)) {
                 leaves.push_back(std::move(node));
                 foundOne = true;
             } else {
-                std::unordered_set<Action> subset =
-                    actionSubset(actions, action);
+                std::unordered_set<Action*> subset(actions);
+                subset.erase(action);
                 bool found = Planner::buildGraph(node, leaves, subset, goals);
                 if (found) {
                     foundOne = true;
                 }
             }
-        }*/
+        }
     }
 
     return foundOne;
+}
+
+bool Planner::containsAll(const std::unordered_set<std::string>& items,
+                          const std::unordered_set<std::string>& state) {
+    bool allMatch = true;
+
+    for (const std::string& value : items) {
+        bool match = false;
+        for (const std::string& s : state) {
+            if (s == value) {
+                match = true;
+                break;
+            }
+            if (!match) {
+                allMatch = false;
+            }
+        }
+    }
+
+    return allMatch;
 }
 
 Planner::Node::Node(Node* parent, float totalCost,

@@ -4,7 +4,7 @@
 
 class ChopTree : public Action {
 public:
-    using Action::Action;
+    ChopTree(const float cost, const std::string& name);
 
     bool checkCondition() const override;
     bool perform() override;

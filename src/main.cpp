@@ -5,7 +5,6 @@
 #include "world.h"
 #include "json_parser.h"
 
-
 void cleanActions(std::unordered_set<Action*> actions) {
     for (Action* action: actions) {
         delete action;
@@ -31,25 +30,6 @@ int main() {
 
     world->addItemStack(ItemStack(Item::WoodStick, 4, 5));
 
-    /*ChopTree chopTree(7.0f, "chop_tree");
-    chopTree.addPrecondition("has_tool");
-    chopTree.addPrecondition("tree_available");
-    chopTree.addEffect("has_wood_logs");
-    chopTree.addEffect("has_sticks");
-
-    WoodCutting woodcutting(2.0f, "wood_cutting");
-    woodcutting.addPrecondition("has_tool");
-    woodcutting.addPrecondition("has_wood_logs");
-    woodcutting.addPrecondition("chopping_block_available");
-    woodcutting.addEffect("has_firewood");
-
-    BundleSticks bundleSticks(8.0f, "bundle_sticks");
-    bundleSticks.addPrecondition("has_sticks");
-    bundleSticks.addEffect("has_firewood");
-
-    std::unordered_set<Action*> actions { &chopTree, &woodcutting,
-                                          &bundleSticks };*/
-
     std::unordered_set<Action*> actions = j.loadActions();
     std::unordered_set<std::string> state { "has_tool", "chopping_block_available", "tree_available" };
     std::unordered_set<std::string> goals { "has_firewood" };
@@ -73,5 +53,7 @@ int main() {
     std::cout << std::endl;
 
     cleanActions(actions);
+    delete world;
+    World::instance = nullptr;
     return 0;
 }

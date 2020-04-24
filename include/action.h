@@ -19,7 +19,9 @@ public:
      * ### Return
      * An instance of Action
      */
-    Action(const float cost, const std::string &name);
+    Action(const float cost, const std::string& name);
+
+    virtual ~Action() = default;
 
     /**
      * ### Brief

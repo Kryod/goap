@@ -2,9 +2,9 @@
 
 #include <unordered_set>
 
+#include "action.h"
 #include "json.h"
 #include "world.h"
-#include "action.h"
 
 using json = nlohmann::json;
 
@@ -13,6 +13,7 @@ public:
     void loadFile(const std::string& filename);
     void loadWorld();
     std::unordered_set<Action*> loadActions();
+
 private:
     void fillEffectsAndConditions(Action* action, json& action_json);
     void loadItems(World* world);

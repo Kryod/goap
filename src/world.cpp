@@ -16,8 +16,3 @@ ItemStack* World::findItem(Item type) {
     }
     return nullptr;
 }
-
-World::~World() {
-    if (instance != nullptr)
-        delete instance;
-}

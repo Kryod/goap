@@ -1,12 +1,13 @@
 #include "json_parser.h"
+#include "actions.h"
 #include <fstream>
 #include <iostream>
-#include "actions.h"
 
 void JsonParser::loadFile(const std::string& filename) {
     std::ifstream file(filename);
     if (!file.is_open()) {
-        std::cerr << "An error occured while opening file: " << filename << std::endl;
+        std::cerr << "An error occured while opening file: " << filename
+                  << std::endl;
     }
     file >> this->j;
 }
@@ -20,18 +21,18 @@ void JsonParser::loadWorld() {
 }
 
 void JsonParser::fillEffectsAndConditions(Action* action, json& action_json) {
-    for (json condition : action_json["preconditions"]) {
+    for (json& condition : action_json["preconditions"]) {
         action->addPrecondition(condition);
     }
 
-    for (json effect : action_json["effects"]) {
+    for (json& effect : action_json["effects"]) {
         action->addEffect(effect);
     }
 }
 
 std::unordered_set<Action*> JsonParser::loadActions() {
     std::unordered_set<Action*> actions;
-    for (json action : this->j["actions"]) {
+    for (json& action : this->j["actions"]) {
         if (action["name"] == "chop_tree") {
             ChopTree* ac = new ChopTree(action["cost"], action["name"]);
             this->fillEffectsAndConditions(ac, action);
@@ -47,7 +48,6 @@ std::unordered_set<Action*> JsonParser::loadActions() {
             this->fillEffectsAndConditions(ac, action);
             actions.emplace(ac);
         }
-        
     }
     return actions;
 }

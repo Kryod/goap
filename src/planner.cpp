@@ -9,6 +9,11 @@ Planner::plan(void* agent, std::unordered_set<Action*> actions,
 
     std::queue<Action*> queue;
 
+    if (Planner::containsAll(goals, state)) {
+        // Goal is already achieved
+        return queue;
+    }
+
     std::unordered_set<Action*> usableActions;
     for (Action* a : actions) {
         if (a->checkCondition(/*agent*/)) {

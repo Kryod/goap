@@ -15,5 +15,6 @@ public:
     std::unordered_set<Action*> loadActions();
 private:
     void fillEffectsAndConditions(Action* action, json& action_json);
+    void loadItems(World* world);
     json j;
 };

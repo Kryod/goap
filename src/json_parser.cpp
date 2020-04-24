@@ -14,7 +14,9 @@ void JsonParser::loadFile(const std::string& filename) {
 void JsonParser::loadWorld() {
     json json_map = this->j["world"]["map"];
     Map map(json_map["width"], json_map["height"], json_map["data"]);
-    World::instance = new World(map);
+    World* world = new World(map);
+    loadItems(world);
+    World::instance = world;
 }
 
 void JsonParser::fillEffectsAndConditions(Action* action, json& action_json) {
@@ -48,4 +50,22 @@ std::unordered_set<Action*> JsonParser::loadActions() {
         
     }
     return actions;
+}
+
+void JsonParser::loadItems(World* world) {
+    for (json itemStack : this->j["world"]["itemStacks"]) {
+        if (itemStack["type"] == "tool") {
+            world->addItemStack(ItemStack(Item::Tool, itemStack["x"], itemStack["y"]));
+        }
+        if (itemStack["type"] == "tree") {
+            world->addItemStack(ItemStack(Item::Tree, itemStack["x"], itemStack["y"]));
+        }
+        if (itemStack["type"] == "woodlog") {
+            world->addItemStack(ItemStack(Item::WoodLog, itemStack["x"], itemStack["y"]));
+        }
+        if (itemStack["type"] == "woodsticks") {
+            world->addItemStack(ItemStack(Item::WoodStick, itemStack["x"], itemStack["y"]));
+        }
+        
+    }
 }

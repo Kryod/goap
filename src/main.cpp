@@ -46,7 +46,7 @@ int main() {
     }
     while (!plan.empty()) {
         Action* a = plan.front();
-        std::cout << typeid(*a).name();
+        std::cout << a->name;
 
         plan.pop();
 

@@ -39,10 +39,34 @@ private:
         Action* action;
     };
 
+    /**
+     * ### Brief
+     * Recursively builds a graph with possible paths to fulfill the `goals`
+     *
+     * ### Param
+     * **parent** the graph's root
+     * **leaves** a vector of leaves that will be populated
+     * **actions** a set of usable actions
+     * **goals** a set of goals to achieve
+     *
+     * ### Return
+     * True if at least one solution was found
+     */
     static bool buildGraph(std::shared_ptr<Node> parent,
                            std::vector<std::shared_ptr<Node>>& leaves,
                            const std::unordered_set<Action*>& actions,
                            const std::unordered_set<std::string>& goals);
+    /**
+     * ### Brief
+     * Checks if all items from `items` are contained in the `state`
+     * 
+     * ### Param
+     * **items** a set of items
+     * **state** a set of states
+     *
+     * ### Return
+     * True if `state` contains all items from `items`
+     */
     static bool containsAll(const std::unordered_set<std::string>& items,
                             const std::unordered_set<std::string>& state);
 };

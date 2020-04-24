@@ -15,6 +15,8 @@ public:
     void addItemStack(const ItemStack& itemStack);
     ItemStack* findItem(Item type);
 
+    ~World();
+
 private:
     Map map;
     std::vector<Building> buildings;

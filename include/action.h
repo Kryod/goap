@@ -19,7 +19,7 @@ public:
      * ### Return
      * An instance of Action
      */
-    Action(const float cost);
+    Action(const float cost, const std::string &name);
 
     /**
      * ### Brief
@@ -118,7 +118,13 @@ public:
      */
     const std::unordered_set<std::string>& getEffects() const;
 
-private:
+    virtual bool checkCondition() const = 0;
+
+    virtual bool perform() = 0;
+
+    std::string name;
+
+protected:
     // List of conditions on the Action
     std::unordered_set<std::string> preconditions;
 

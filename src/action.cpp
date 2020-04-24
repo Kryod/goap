@@ -1,7 +1,7 @@
 #include "action.h"
 #include <cassert>
 
-Action::Action(const float cost) { this->setCost(cost); }
+Action::Action(const float cost, const std::string &name) : name(name) { this->setCost(cost); }
 
 float Action::getCost() const { return this->cost; }
 

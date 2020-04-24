@@ -19,7 +19,8 @@ public:
      * **goals** a set of goals to achieve
      *
      * ### Return
-     * A `std::queue` of `Action*`s to perform in order to achieve the `goals` state
+     * A `std::queue` of `Action*`s to perform in order to achieve the `goals`
+     * state
      */
     static std::queue<Action*>
     plan(void* agent, std::unordered_set<Action*> actions,
@@ -29,16 +30,17 @@ public:
 private:
     class Node {
     public:
-        Node(Node* parent, float totalCost,
+        Node(std::shared_ptr<Node> parent, float totalCost,
              const std::unordered_set<std::string>& state, Action* action);
 
-        Node* parent;
+        std::shared_ptr<Node> parent;
         float totalCost;
         std::unordered_set<std::string> state;
         Action* action;
     };
 
-    static bool buildGraph(Node& parent, std::vector<Node>& leaves,
+    static bool buildGraph(std::shared_ptr<Node> parent,
+                           std::vector<std::shared_ptr<Node>>& leaves,
                            const std::unordered_set<Action*>& actions,
                            const std::unordered_set<std::string>& goals);
     static bool containsAll(const std::unordered_set<std::string>& items,

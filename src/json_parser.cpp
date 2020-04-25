@@ -12,7 +12,7 @@ void JsonParser::loadFile(const std::string& filename) {
     file >> this->j;
 }
 
-void JsonParser::loadWorld() {
+void JsonParser::loadWorld() const {
     json json_map = this->j["world"]["map"];
     Map map(json_map["width"], json_map["height"], json_map["data"]);
     World* world = new World(map);
@@ -20,19 +20,20 @@ void JsonParser::loadWorld() {
     World::instance = world;
 }
 
-void JsonParser::fillEffectsAndConditions(Action* action, json& action_json) {
-    for (json& condition : action_json["preconditions"]) {
+void JsonParser::fillEffectsAndConditions(Action* action,
+                                          const json& action_json) const {
+    for (const json& condition : action_json["preconditions"]) {
         action->addPrecondition(condition);
     }
 
-    for (json& effect : action_json["effects"]) {
+    for (const json& effect : action_json["effects"]) {
         action->addEffect(effect);
     }
 }
 
-std::unordered_set<Action*> JsonParser::loadActions() {
+std::unordered_set<Action*> JsonParser::loadActions() const {
     std::unordered_set<Action*> actions;
-    for (json& action : this->j["actions"]) {
+    for (const json& action : this->j["actions"]) {
         if (action["name"] == "chop_tree") {
             ChopTree* ac = new ChopTree(action["cost"], action["name"]);
             this->fillEffectsAndConditions(ac, action);
@@ -52,20 +53,23 @@ std::unordered_set<Action*> JsonParser::loadActions() {
     return actions;
 }
 
-void JsonParser::loadItems(World* world) {
+void JsonParser::loadItems(World* world) const {
     for (json itemStack : this->j["world"]["itemStacks"]) {
         if (itemStack["type"] == "tool") {
-            world->addItemStack(ItemStack(Item::Tool, itemStack["x"], itemStack["y"]));
+            world->addItemStack(
+                ItemStack(Item::Tool, itemStack["x"], itemStack["y"]));
         }
         if (itemStack["type"] == "tree") {
-            world->addItemStack(ItemStack(Item::Tree, itemStack["x"], itemStack["y"]));
+            world->addItemStack(
+                ItemStack(Item::Tree, itemStack["x"], itemStack["y"]));
         }
         if (itemStack["type"] == "woodlog") {
-            world->addItemStack(ItemStack(Item::WoodLog, itemStack["x"], itemStack["y"]));
+            world->addItemStack(
+                ItemStack(Item::WoodLog, itemStack["x"], itemStack["y"]));
         }
         if (itemStack["type"] == "woodsticks") {
-            world->addItemStack(ItemStack(Item::WoodStick, itemStack["x"], itemStack["y"]));
+            world->addItemStack(
+                ItemStack(Item::WoodStick, itemStack["x"], itemStack["y"]));
         }
-        
     }
 }

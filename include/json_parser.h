@@ -11,11 +11,12 @@ using json = nlohmann::json;
 class JsonParser {
 public:
     void loadFile(const std::string& filename);
-    void loadWorld();
-    std::unordered_set<Action*> loadActions();
+    void loadWorld() const;
+    std::unordered_set<Action*> loadActions() const;
 
 private:
-    void fillEffectsAndConditions(Action* action, json& action_json);
-    void loadItems(World* world);
+    void fillEffectsAndConditions(Action* action,
+                                  const json& action_json) const;
+    void loadItems(World* world) const;
     json j;
 };

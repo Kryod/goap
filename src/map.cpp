@@ -15,12 +15,21 @@ Map::Map(unsigned int width, unsigned int height, const std::string& data)
 
     for (unsigned int i = 0; i < size; ++i) {
         char tileChar = data.at(i);
-        Map::Tile::Type t = static_cast<Map::Tile::Type>(tileChar - '0');
+        Tile::Type t = static_cast<Tile::Type>(tileChar - '0');
 
         this->tiles.emplace_back(t);
     }
 }
 
-void Map::draw(sf::RenderTarget& target) const {}
+void Map::draw(sf::RenderTarget& target) {
+    for (unsigned int y = 0; y < this->height; ++y) {
+        for (unsigned int x = 0; x < this->width; ++x) {
+            Tile &t = this->tiles[y * this->width + x];
+            sf::Sprite &sprite = this->sprites[t.type];
+            sprite.setPosition(x * 64, y * 64);
+            target.draw(sprite);
+        }
+    }
+}
 
 Map::Tile::Tile(Map::Tile::Type type) : type(type) {}

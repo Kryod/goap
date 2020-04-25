@@ -35,7 +35,7 @@ public:
      */
     Map(unsigned int width, unsigned int height, const std::string& data);
 
-    void draw(sf::RenderTarget& target) const;
+    void draw(sf::RenderTarget& target);
 
 private:
     std::vector<Tile> tiles;

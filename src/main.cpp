@@ -17,6 +17,8 @@ int main() {
     sf::View view(sf::FloatRect(0.0f, 0.0f, window.getSize().x, window.getSize().y));
     window.setView(view);
     window.setVerticalSyncEnabled(true);
+    sf::Vector2i lastMousePos;
+    const float zoomFactor = 1.25f;
 
     JsonParser j;
 
@@ -52,6 +54,9 @@ int main() {
     sf::Event event;
     while (window.isOpen()) {
         while (window.pollEvent(event)) {
+            sf::Vector2i mousePos = sf::Mouse::getPosition();
+            sf::Vector2i deltaMousePos = lastMousePos - mousePos;
+
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
@@ -63,14 +68,21 @@ int main() {
             }
             if (event.type == sf::Event::MouseMoved) {
                 if (sf::Mouse::isButtonPressed(sf::Mouse::Middle)) {
-                    view.move(-event.mouseMove.x, -event.mouseMove.y);
+                    view.move(deltaMousePos.x, deltaMousePos.y);
+                    window.setView(view);
                 }
             }
+            if (event.type == sf::Event::MouseWheelScrolled) {
+                view.zoom(event.mouseWheelScroll.delta < 0.0f ? zoomFactor : 1.0f / zoomFactor);
+                window.setView(view);
+            }
+
+            lastMousePos = mousePos;
         }
 
         window.clear(sf::Color(32, 32, 32));
 
-        // Draw here
+        world->getMap().draw(window);
 
         window.display();
     }

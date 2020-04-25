@@ -16,3 +16,5 @@ ItemStack* World::findItem(Item type) {
     }
     return nullptr;
 }
+
+Map& World::getMap() { return this->map; }

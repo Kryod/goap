@@ -1,0 +1,31 @@
+{
+    "world": {
+        "map": { "width": 10, "height": 10, "data": "1111101111111100001111111000111111111111111111111111111121111112222222111111211111111121111111112111" },
+        "itemStacks": [
+            { "type": "tool", "x": 7, "y": 3 },
+            { "type": "tree", "x": 2, "y": 7 },
+            { "type": "woodlog", "x": 2, "y": 8 },
+            { "type": "woodsticks", "x": 4, "y": 5 }
+        ]
+    },
+    "actions": [
+        {
+            "name": "chop_tree",
+            "preconditions": [ "has_tool", "tree_available" ],
+            "effects": [ "has_wood_logs", "has_sticks" ],
+            "cost": 7.0
+        },
+        {
+            "name": "wood_cutting",
+            "preconditions": [ "has_tool", "has_wood_logs", "chopping_block_available" ],
+            "effects": [ "has_firewood" ],
+            "cost": 2.0
+        },
+        {
+            "name": "bundle_sticks",
+            "preconditions": [ "has_sticks" ],
+            "effects": [ "has_firewood" ],
+            "cost": 1.0
+        }
+    ]
+}

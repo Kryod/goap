@@ -27,6 +27,9 @@ ADD_EXECUTABLE(
     ${PROJECT_SOURCE_DIR}/lib/lib.cpp
 )
 
+configure_file(${PROJECT_SOURCE_DIR}/conf.json
+         ${CMAKE_CURRENT_BINARY_DIR}/conf.json COPYONLY)
+         
 FIND_PACKAGE(SFML 2 REQUIRED graphics window system)
 IF (SFML_FOUND)
     INCLUDE_DIRECTORIES(${SFML_INCLUDE_DIR})

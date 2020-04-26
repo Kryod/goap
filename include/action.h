@@ -124,8 +124,6 @@ public:
      */
     const std::unordered_set<std::string>& getEffects() const;
 
-    bool inRange;
-
     bool isInRange() const;
 
     virtual bool checkCondition(Agent* agent) = 0;
@@ -136,6 +134,7 @@ public:
 
     std::string name;
     ItemStack* target;
+    bool inRange;
 
 protected:
     // List of conditions on the Action

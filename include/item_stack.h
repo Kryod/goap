@@ -1,5 +1,7 @@
 #pragma once
 
+#include <SFML/System/Vector2.hpp>
+
 #include "item.h"
 
 class ItemStack {
@@ -8,6 +10,10 @@ public:
 
     const Item& getItem() const;
     unsigned short getCount() const;
+    int getX() const;
+    int getY() const;
+    sf::Vector2i getPos() const;
+
     void add(unsigned short amount);
     void remove(unsigned short amount);
 

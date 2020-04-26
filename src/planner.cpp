@@ -3,7 +3,7 @@
 #include "planner.h"
 
 std::queue<Action*>
-Planner::plan(void* agent, std::unordered_set<Action*> actions,
+Planner::plan(Agent* agent, std::unordered_set<Action*> actions,
               const std::unordered_set<std::string>& state,
               const std::unordered_set<std::string>& goals) {
 
@@ -16,14 +16,14 @@ Planner::plan(void* agent, std::unordered_set<Action*> actions,
 
     std::unordered_set<Action*> usableActions;
     for (Action* a : actions) {
-        if (a->checkCondition(/*agent*/)) {
+        if (a->checkCondition(agent)) {
             usableActions.insert(a);
         }
     }
 
     std::vector<std::shared_ptr<Node>> leaves;
     auto root = std::shared_ptr<Node>(new Node(nullptr, 0.0f, state, nullptr));
-    bool success = Planner::buildGraph(root, leaves, usableActions, goals);
+    bool success = Planner::buildGraph(root, leaves, actions, goals);
 
     if (!success) {
         return queue;

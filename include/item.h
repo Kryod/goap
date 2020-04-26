@@ -5,5 +5,6 @@ enum Item {
     WoodStick,
     Firewood,
     Tool,
-    Tree, // TODO: move the tree to a proper "world object" class
+    Tree,
+    ChoppingBlock,
 };

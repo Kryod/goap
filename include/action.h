@@ -2,6 +2,10 @@
 
 #include <unordered_set>
 
+#include "item_stack.h"
+
+class Agent;
+
 /**
  * Representation of an action,
  * can possess conditions to be able to run,
@@ -120,11 +124,17 @@ public:
      */
     const std::unordered_set<std::string>& getEffects() const;
 
-    virtual bool checkCondition() const = 0;
+    bool isInRange() const;
 
-    virtual bool perform() = 0;
+    virtual bool checkCondition(Agent* agent) = 0;
+
+    virtual bool perform(float dt) = 0;
+
+    virtual bool isDone() = 0;
 
     std::string name;
+    ItemStack* target;
+    bool inRange;
 
 protected:
     // List of conditions on the Action

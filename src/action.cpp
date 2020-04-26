@@ -1,14 +1,14 @@
 #include "action.h"
-#include <cassert>
+#include "m_assert.h"
 
-Action::Action(const float cost, const std::string& name) : name(name) {
+Action::Action(const float cost, const std::string& name) : name(name), target(nullptr), inRange(false) {
     this->setCost(cost);
 }
 
 float Action::getCost() const { return this->cost; }
 
 void Action::setCost(const float cost) {
-    assert(cost >= 0.0f);
+    M_ASSERT(cost >= 0.0f, "Cost cannot be negative");
 
     this->cost = cost;
 }
@@ -43,4 +43,8 @@ bool Action::hasEffect(const std::string& effect) const {
 
 const std::unordered_set<std::string>& Action::getEffects() const {
     return this->effects;
+}
+
+bool Action::isInRange() const {
+    return this->inRange;
 }

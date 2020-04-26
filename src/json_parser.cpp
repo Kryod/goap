@@ -1,7 +1,8 @@
-#include "json_parser.h"
-#include "actions.h"
 #include <fstream>
 #include <iostream>
+
+#include "actions.h"
+#include "json_parser.h"
 
 void JsonParser::loadFile(const std::string& filename) {
     std::ifstream file(filename);
@@ -33,43 +34,40 @@ void JsonParser::fillEffectsAndConditions(Action* action,
 
 std::unordered_set<Action*> JsonParser::loadActions() const {
     std::unordered_set<Action*> actions;
+    Action* a = nullptr;
+
     for (const json& action : this->j["actions"]) {
         if (action["name"] == "chop_tree") {
-            ChopTree* ac = new ChopTree(action["cost"], action["name"]);
-            this->fillEffectsAndConditions(ac, action);
-            actions.emplace(ac);
+            a = new ChopTree(action["cost"], action["name"]);
         }
         if (action["name"] == "wood_cutting") {
-            WoodCutting* ac = new WoodCutting(action["cost"], action["name"]);
-            this->fillEffectsAndConditions(ac, action);
-            actions.emplace(ac);
+            a = new WoodCutting(action["cost"], action["name"]);
         }
         if (action["name"] == "bundle_sticks") {
-            BundleSticks* ac = new BundleSticks(action["cost"], action["name"]);
-            this->fillEffectsAndConditions(ac, action);
-            actions.emplace(ac);
+            a = new BundleSticks(action["cost"], action["name"]);
+        }
+
+        if (action != nullptr) {
+            this->fillEffectsAndConditions(a, action);
+            actions.emplace(a);
         }
     }
     return actions;
 }
 
 void JsonParser::loadItems(World* world) const {
+    std::map<std::string, Item> itemTypes { { "tool", Tool },
+                                            { "tree", Tree },
+                                            { "woodlog", WoodLog },
+                                            { "woodsticks", WoodStick } };
+
     for (json itemStack : this->j["world"]["itemStacks"]) {
-        if (itemStack["type"] == "tool") {
-            world->addItemStack(
-                ItemStack(Item::Tool, itemStack["x"], itemStack["y"]));
-        }
-        if (itemStack["type"] == "tree") {
-            world->addItemStack(
-                ItemStack(Item::Tree, itemStack["x"], itemStack["y"]));
-        }
-        if (itemStack["type"] == "woodlog") {
-            world->addItemStack(
-                ItemStack(Item::WoodLog, itemStack["x"], itemStack["y"]));
-        }
-        if (itemStack["type"] == "woodsticks") {
-            world->addItemStack(
-                ItemStack(Item::WoodStick, itemStack["x"], itemStack["y"]));
+        if (itemTypes.find(itemStack["type"]) != itemTypes.end()) {
+            world->addItemStack(ItemStack(itemTypes[itemStack["type"]],
+                                          itemStack["x"], itemStack["y"]));
+        } else {
+            std::cerr << "Item type \"" << itemStack["type"]
+                      << "\" not found for item stack" << std::endl;
         }
     }
 }

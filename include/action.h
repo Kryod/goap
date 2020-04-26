@@ -4,6 +4,8 @@
 
 #include "item_stack.h"
 
+class Agent;
+
 /**
  * Representation of an action,
  * can possess conditions to be able to run,
@@ -124,7 +126,7 @@ public:
 
     bool isInRange() const;
 
-    virtual bool checkCondition() const = 0;
+    virtual bool checkCondition(Agent* agent) = 0;
 
     virtual bool perform() = 0;
 

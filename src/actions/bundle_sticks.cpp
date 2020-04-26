@@ -4,8 +4,8 @@
 BundleSticks::BundleSticks(const float cost, const std::string& name)
     : Action(cost, name) {}
 
-bool BundleSticks::checkCondition() const {
-    return World::instance->findItem(Item::WoodStick) != nullptr;
+bool BundleSticks::checkCondition(Agent* agent) {
+    return true;
 }
 
 bool BundleSticks::perform() { return true; }

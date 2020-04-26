@@ -5,6 +5,7 @@
 #include <unordered_set>
 
 #include "action.h"
+#include "agent.h"
 
 class Planner {
 public:
@@ -23,7 +24,7 @@ public:
      * state
      */
     static std::queue<Action*>
-    plan(void* agent, std::unordered_set<Action*> actions,
+    plan(Agent* agent, std::unordered_set<Action*> actions,
          const std::unordered_set<std::string>& state,
          const std::unordered_set<std::string>& goals);
 

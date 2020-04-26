@@ -96,3 +96,7 @@ void Agent::draw(sf::RenderTarget& target) {
     this->sprite.setPosition(this->x, this->y);
     target.draw(this->sprite);
 }
+
+sf::Vector2f Agent::getPos() const {
+    return sf::Vector2f(this->x, this->y);
+}

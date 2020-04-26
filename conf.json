@@ -4,7 +4,6 @@
         "itemStacks": [
             { "type": "tool", "x": 7, "y": 3 },
             { "type": "tree", "x": 2, "y": 7 },
-            { "type": "woodlog", "x": 2, "y": 8 },
             { "type": "chopping_block", "x": 9, "y": 7 }
         ]
     },
@@ -25,7 +24,7 @@
             "name": "bundle_sticks",
             "preconditions": [ "has_sticks" ],
             "effects": [ "has_firewood" ],
-            "cost": 1.0
+            "cost": 8.0
         }
     ]
 }

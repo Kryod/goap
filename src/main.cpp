@@ -35,13 +35,19 @@ int main() {
 
     // Game initialisation
     World* world = World::instance;
-    Agent agent(8.5f * Map::TILE_SIZE, 7.5f * Map::TILE_SIZE);
-    Ui ui;
-
     std::unordered_set<Action*> actions = j.loadActions();
     std::unordered_set<std::string> state = world->getState();
     std::unordered_set<std::string> goals { "has_firewood" };
-    std::queue<Action*> plan = Planner::plan(nullptr, actions, state, goals);
+    Agent agent(8.5f * Map::TILE_SIZE, 7.5f * Map::TILE_SIZE);
+    agent.goal = { "has_firewood" };
+    agent.availableActions = actions;
+    Ui ui;
+
+    for (auto &s : state) {
+        std::cout << "- " << s << std::endl;
+    }
+
+    std::queue<Action*> plan = Planner::plan(&agent, actions, state, goals);
 
     if (plan.empty()) {
         std::cout << "No plan found";

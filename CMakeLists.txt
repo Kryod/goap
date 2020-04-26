@@ -21,6 +21,7 @@ ADD_EXECUTABLE(
     ${PROJECT_SOURCE_DIR}/src/texture_loader.cpp
     ${PROJECT_SOURCE_DIR}/src/font_loader.cpp
     ${PROJECT_SOURCE_DIR}/src/utils.cpp
+    ${PROJECT_SOURCE_DIR}/src/state_machine.cpp
     ${PROJECT_SOURCE_DIR}/src/actions/bundle_sticks.cpp
     ${PROJECT_SOURCE_DIR}/src/actions/chop_tree.cpp
     ${PROJECT_SOURCE_DIR}/src/actions/wood_cutting.cpp

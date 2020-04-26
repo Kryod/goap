@@ -1,5 +1,5 @@
 #include "action.h"
-#include <cassert>
+#include "m_assert.h"
 
 Action::Action(const float cost, const std::string& name) : name(name) {
     this->setCost(cost);
@@ -8,7 +8,7 @@ Action::Action(const float cost, const std::string& name) : name(name) {
 float Action::getCost() const { return this->cost; }
 
 void Action::setCost(const float cost) {
-    assert(cost >= 0.0f);
+    M_ASSERT(cost >= 0.0f, "Cost cannot be negative");
 
     this->cost = cost;
 }

@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include "actions.h"
+#include "agent.h"
 #include "json_parser.h"
 #include "planner.h"
 #include "ui.h"
@@ -34,6 +35,7 @@ int main() {
 
     // Game initialisation
     World* world = World::instance;
+    Agent agent(8.0f * Map::TILE_SIZE, 7.0f * Map::TILE_SIZE);
     Ui ui;
 
     std::unordered_set<Action*> actions = j.loadActions();
@@ -60,6 +62,7 @@ int main() {
 
     // Game loop
     sf::Event event;
+    sf::Clock clock;
     while (window.isOpen()) {
         while (window.pollEvent(event)) {
             sf::Vector2i mousePos = sf::Mouse::getPosition();
@@ -101,10 +104,15 @@ int main() {
             lastMousePos = mousePos;
         }
 
+        float dt = clock.getElapsedTime().asSeconds();
+
+        agent.update(dt);
+
         window.clear(sf::Color(32, 32, 32));
 
         window.setView(view);
         world->draw(window);
+        agent.draw(window);
 
         window.setView(uiView);
         ui.draw(window, uiView);

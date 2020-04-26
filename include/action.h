@@ -2,6 +2,8 @@
 
 #include <unordered_set>
 
+#include "item_stack.h"
+
 /**
  * Representation of an action,
  * can possess conditions to be able to run,
@@ -125,6 +127,7 @@ public:
     virtual bool perform() = 0;
 
     std::string name;
+    ItemStack* target;
 
 protected:
     // List of conditions on the Action

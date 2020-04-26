@@ -124,6 +124,8 @@ public:
      */
     const std::unordered_set<std::string>& getEffects() const;
 
+    bool inRange;
+
     bool isInRange() const;
 
     virtual bool checkCondition(Agent* agent) = 0;
@@ -143,5 +145,4 @@ protected:
     std::unordered_set<std::string> effects;
 
     float cost; // The cost of the action
-    bool inRange;
 };

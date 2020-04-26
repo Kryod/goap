@@ -20,6 +20,7 @@ public:
     void addItemStack(const ItemStack& itemStack);
     ItemStack* getNearestItemStack(const Item item, const sf::Vector2f& pos);
     ItemStack* findItem(Item type);
+    float distance(sf::Vector2f p1, sf::Vector2f p2) const;
 
     std::unordered_set<std::string> getState() const;
     void draw(sf::RenderTarget& target);

@@ -38,6 +38,9 @@ void Agent::moveState(Agent* agent, float dt) {
         moveTarget.y += 0.5 * Map::TILE_SIZE;
         sf::Vector2f pos(agent->x, agent->y);
         sf::Vector2f vec = normalize(moveTarget - pos) * dt * 0.25f;
+        if (World::instance->distance(pos, moveTarget) < 10.0f) {
+            action->inRange = true;
+        }
         agent->x = agent->x + vec.x;
         agent->y = agent->y + vec.y;
         agent->stateMachine.pop();

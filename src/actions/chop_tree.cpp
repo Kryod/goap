@@ -2,7 +2,7 @@
 #include "world.h"
 
 ChopTree::ChopTree(const float cost, const std::string& name)
-    : Action(cost, name), t(0.0f), workDuration(2.0f) {}
+    : Action(cost, name), t(0.0f), workDuration(1000.0f) {}
 
 bool ChopTree::checkCondition(Agent* agent) {
     ItemStack* closestTree =

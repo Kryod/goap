@@ -55,7 +55,7 @@ void World::draw(sf::RenderTarget& target) {
     }
 }
 
-float distance(sf::Vector2f p1, sf::Vector2f p2) {
+float World::distance(sf::Vector2f p1, sf::Vector2f p2) const {
     return sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2));
 }
 

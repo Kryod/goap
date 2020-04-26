@@ -20,7 +20,7 @@ public:
     void addItemStack(const ItemStack& itemStack);
     ItemStack* findItem(Item type);
 
-    std::unordered_set<std::string> getState();
+    std::unordered_set<std::string> getState() const;
     void draw(sf::RenderTarget& target);
 
 private:

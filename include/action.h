@@ -122,9 +122,13 @@ public:
      */
     const std::unordered_set<std::string>& getEffects() const;
 
+    bool isInRange() const;
+
     virtual bool checkCondition() const = 0;
 
     virtual bool perform() = 0;
+
+    virtual bool isDone() = 0;
 
     std::string name;
     ItemStack* target;
@@ -137,4 +141,5 @@ protected:
     std::unordered_set<std::string> effects;
 
     float cost; // The cost of the action
+    bool inRange;
 };

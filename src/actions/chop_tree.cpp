@@ -10,3 +10,5 @@ bool ChopTree::checkCondition() const {
 }
 
 bool ChopTree::perform() { return true; }
+
+bool ChopTree::isDone() { return false; }

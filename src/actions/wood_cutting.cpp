@@ -10,3 +10,5 @@ bool WoodCutting::checkCondition() const {
 }
 
 bool WoodCutting::perform() { return true; }
+
+bool WoodCutting::isDone() { return false; }

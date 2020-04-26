@@ -54,7 +54,7 @@ void World::draw(sf::RenderTarget& target) {
     }
 }
 
-std::unordered_set<std::string> World::getState() {
+std::unordered_set<std::string> World::getState() const {
     std::unordered_set<std::string> states;
 
     for (const ItemStack& stack : this->itemStacks) {

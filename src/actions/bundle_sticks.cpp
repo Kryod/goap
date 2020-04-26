@@ -9,3 +9,5 @@ bool BundleSticks::checkCondition() const {
 }
 
 bool BundleSticks::perform() { return true; }
+
+bool BundleSticks::isDone() { return false; }

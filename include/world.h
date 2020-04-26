@@ -15,7 +15,7 @@ public:
 
     static World* instance;
     static std::map<std::string, Item> itemTypes;
-    static std::map<std::string, std::string> stateMap;
+    static std::map<Item, std::string> stateMap;
 
     void addItemStack(const ItemStack& itemStack);
     ItemStack* findItem(Item type);

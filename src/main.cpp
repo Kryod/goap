@@ -37,9 +37,7 @@ int main() {
     Ui ui;
 
     std::unordered_set<Action*> actions = j.loadActions();
-    std::unordered_set<std::string> state { "has_tool",
-                                            "chopping_block_available",
-                                            "tree_available" };
+    std::unordered_set<std::string> state = world->getState();
     std::unordered_set<std::string> goals { "has_firewood" };
     std::queue<Action*> plan = Planner::plan(nullptr, actions, state, goals);
 

@@ -56,14 +56,10 @@ std::unordered_set<Action*> JsonParser::loadActions() const {
 }
 
 void JsonParser::loadItems(World* world) const {
-    std::map<std::string, Item> itemTypes { { "tool", Tool },
-                                            { "tree", Tree },
-                                            { "woodlog", WoodLog },
-                                            { "woodsticks", WoodStick } };
 
     for (json itemStack : this->j["world"]["itemStacks"]) {
-        if (itemTypes.find(itemStack["type"]) != itemTypes.end()) {
-            world->addItemStack(ItemStack(itemTypes[itemStack["type"]],
+        if (world->itemTypes.find(itemStack["type"]) != world->itemTypes.end()) {
+            world->addItemStack(ItemStack(world->itemTypes[itemStack["type"]],
                                           itemStack["x"], itemStack["y"]));
         } else {
             std::cerr << "Item type \"" << itemStack["type"]

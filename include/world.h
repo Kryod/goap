@@ -18,6 +18,7 @@ public:
     static std::map<Item, std::string> stateMap;
 
     void addItemStack(const ItemStack& itemStack);
+    ItemStack* getNearestItemStack(const Item item, const sf::Vector2f& pos) const;
     ItemStack* findItem(Item type);
 
     std::unordered_set<std::string> getState();

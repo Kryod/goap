@@ -1,5 +1,6 @@
 #include "world.h"
 #include "texture_loader.h"
+#include <cmath>
 
 World::World(Map& map) : map(map) {
     TextureLoader& tl = TextureLoader::instance();
@@ -53,6 +54,30 @@ void World::draw(sf::RenderTarget& target) {
         target.draw(sprite);
     }
 }
+
+float distance(sf::Vector2f p1, sf::Vector2f p2) 
+{ 
+    return sqrt(pow(p2.x - p1.x, 2) +  
+                pow(p2.y - p1.y, 2)); 
+} 
+
+ItemStack* World::getNearestItemStack(const Item item, const sf::Vector2f& pos) const {
+    ItemStack* nearest = nullptr;
+
+    for (ItemStack itemstack : this->itemStacks)
+    {
+        if (itemstack.getItem() == item){
+            sf::Vector2f moveTarget = static_cast<sf::Vector2f>(
+                itemstack.getPos() * Map::TILE_SIZE);
+            if (nearest == nullptr || 
+                distance(pos, moveTarget) < distance(pos, static_cast<sf::Vector2f>(nearest->getPos() * Map::TILE_SIZE))) {
+                nearest = &itemstack;
+            }
+        }
+    }
+
+    return nearest;
+} 
 
 std::unordered_set<std::string> World::getState() {
     std::unordered_set<std::string> states;

@@ -17,10 +17,14 @@ ADD_EXECUTABLE(
     ${PROJECT_SOURCE_DIR}/src/map.cpp
     ${PROJECT_SOURCE_DIR}/src/item_stack.cpp
     ${PROJECT_SOURCE_DIR}/src/json_parser.cpp
+    ${PROJECT_SOURCE_DIR}/src/ui.cpp
     ${PROJECT_SOURCE_DIR}/src/texture_loader.cpp
+    ${PROJECT_SOURCE_DIR}/src/font_loader.cpp
+    ${PROJECT_SOURCE_DIR}/src/utils.cpp
     ${PROJECT_SOURCE_DIR}/src/actions/bundle_sticks.cpp
     ${PROJECT_SOURCE_DIR}/src/actions/chop_tree.cpp
     ${PROJECT_SOURCE_DIR}/src/actions/wood_cutting.cpp
+    ${PROJECT_SOURCE_DIR}/lib/lib.cpp
 )
 
 FIND_PACKAGE(SFML 2 REQUIRED graphics window system)

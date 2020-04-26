@@ -4,6 +4,7 @@
 #include "actions.h"
 #include "json_parser.h"
 #include "planner.h"
+#include "ui.h"
 #include "world.h"
 
 void cleanActions(std::unordered_set<Action*> actions) {
@@ -13,19 +14,27 @@ void cleanActions(std::unordered_set<Action*> actions) {
 }
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Goal Oriented Action Planning");
-    sf::View view(sf::FloatRect(0.0f, 0.0f, window.getSize().x, window.getSize().y));
+    // SFML stuff
+    sf::RenderWindow window(sf::VideoMode(800, 600),
+                            "Goal Oriented Action Planning");
+    sf::View view(
+        sf::FloatRect(0.0f, 0.0f, window.getSize().x, window.getSize().y));
     window.setView(view);
     window.setVerticalSyncEnabled(true);
+    sf::View uiView(
+        sf::FloatRect(0.0f, 0.0f, window.getSize().x, window.getSize().y));
     sf::Vector2i lastMousePos;
-    const float zoomFactor = 1.25f;
+    const float ZOOM_STEP = 1.25f;
+    float zoomFactor = 1.0f;
 
+    // JSON parsing
     JsonParser j;
-
     j.loadFile("conf.json");
     j.loadWorld();
 
+    // Game initialisation
     World* world = World::instance;
+    Ui ui;
 
     std::unordered_set<Action*> actions = j.loadActions();
     std::unordered_set<std::string> state { "has_tool",
@@ -51,6 +60,7 @@ int main() {
     }
     std::cout << std::endl;
 
+    // Game loop
     sf::Event event;
     while (window.isOpen()) {
         while (window.pollEvent(event)) {
@@ -60,21 +70,34 @@ int main() {
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
+
             if (event.type == sf::Event::KeyPressed) {
                 if (event.key.code == sf::Keyboard::Escape ||
                     event.key.code == sf::Keyboard::Q) {
                     window.close();
                 }
             }
+
             if (event.type == sf::Event::MouseMoved) {
                 if (sf::Mouse::isButtonPressed(sf::Mouse::Middle)) {
-                    view.move(deltaMousePos.x, deltaMousePos.y);
-                    window.setView(view);
+                    sf::Vector2f delta =
+                        static_cast<sf::Vector2f>(deltaMousePos);
+                    delta *= zoomFactor; // pan faster/slower according to zoom
+                    view.move(delta);
                 }
             }
+
             if (event.type == sf::Event::MouseWheelScrolled) {
-                view.zoom(event.mouseWheelScroll.delta < 0.0f ? zoomFactor : 1.0f / zoomFactor);
-                window.setView(view);
+                if ((event.mouseWheelScroll.delta < 0.0f && // scroll down
+                     zoomFactor < 4.0f) || // can still zoom out
+                    (event.mouseWheelScroll.delta > 0.0f && // scroll up
+                     zoomFactor > 0.35f)) {                 // can still zoom in
+                    float delta = event.mouseWheelScroll.delta < 0.0f
+                                      ? ZOOM_STEP
+                                      : 1.0f / ZOOM_STEP;
+                    zoomFactor *= delta;
+                    view.zoom(delta);
+                }
             }
 
             lastMousePos = mousePos;
@@ -82,7 +105,11 @@ int main() {
 
         window.clear(sf::Color(32, 32, 32));
 
-        world->getMap().draw(window);
+        window.setView(view);
+        world->draw(window);
+
+        window.setView(uiView);
+        ui.draw(window, uiView);
 
         window.display();
     }

@@ -37,6 +37,8 @@ public:
 
     void draw(sf::RenderTarget& target);
 
+    static const int TILE_SIZE = 64;
+
 private:
     std::vector<Tile> tiles;
     std::map<Tile::Type, sf::Sprite> sprites;

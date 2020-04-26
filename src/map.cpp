@@ -26,7 +26,7 @@ void Map::draw(sf::RenderTarget& target) {
         for (unsigned int x = 0; x < this->width; ++x) {
             Tile &t = this->tiles[y * this->width + x];
             sf::Sprite &sprite = this->sprites[t.type];
-            sprite.setPosition(x * 64, y * 64);
+            sprite.setPosition(x * Map::TILE_SIZE, y * Map::TILE_SIZE);
             target.draw(sprite);
         }
     }

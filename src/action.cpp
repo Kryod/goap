@@ -1,7 +1,7 @@
 #include "action.h"
 #include "m_assert.h"
 
-Action::Action(const float cost, const std::string& name) : name(name), target(nullptr) {
+Action::Action(const float cost, const std::string& name) : name(name), target(nullptr), inRange(false) {
     this->setCost(cost);
 }
 

@@ -9,6 +9,6 @@ bool WoodCutting::checkCondition(Agent* agent) {
            World::instance->findItem(Item::ChoppingBlock) != nullptr;
 }
 
-bool WoodCutting::perform() { return true; }
+bool WoodCutting::perform(float dt) { return true; }
 
 bool WoodCutting::isDone() { return false; }

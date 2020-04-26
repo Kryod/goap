@@ -128,7 +128,7 @@ public:
 
     virtual bool checkCondition(Agent* agent) = 0;
 
-    virtual bool perform() = 0;
+    virtual bool perform(float dt) = 0;
 
     virtual bool isDone() = 0;
 

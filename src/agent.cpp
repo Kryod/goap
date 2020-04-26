@@ -65,7 +65,7 @@ void Agent::performActionState(Agent* agent, float dt) {
     if (!agent->currentActions.empty()) {
         action = agent->currentActions.front();
         if (action->isInRange()) {
-            if (action->perform()) {
+            if (action->perform(dt)) {
                 // Successfully performed
                 agent->stateMachine.pop();
                 agent->stateMachine.push(&idleState);

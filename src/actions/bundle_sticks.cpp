@@ -8,6 +8,6 @@ bool BundleSticks::checkCondition(Agent* agent) {
     return true;
 }
 
-bool BundleSticks::perform() { return true; }
+bool BundleSticks::perform(float dt) { return true; }
 
 bool BundleSticks::isDone() { return false; }

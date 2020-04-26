@@ -35,7 +35,7 @@ int main() {
 
     // Game initialisation
     World* world = World::instance;
-    Agent agent(8.0f * Map::TILE_SIZE, 7.0f * Map::TILE_SIZE);
+    Agent agent(8.5f * Map::TILE_SIZE, 7.5f * Map::TILE_SIZE);
     Ui ui;
 
     std::unordered_set<Action*> actions = j.loadActions();

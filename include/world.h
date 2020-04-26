@@ -21,7 +21,7 @@ public:
     ItemStack* getNearestItemStack(const Item item, const sf::Vector2f& pos) const;
     ItemStack* findItem(Item type);
 
-    std::unordered_set<std::string> getState();
+    std::unordered_set<std::string> getState() const;
     void draw(sf::RenderTarget& target);
 
 private:

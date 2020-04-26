@@ -44,3 +44,7 @@ bool Action::hasEffect(const std::string& effect) const {
 const std::unordered_set<std::string>& Action::getEffects() const {
     return this->effects;
 }
+
+bool Action::isInRange() const {
+    return this->inRange;
+}

@@ -79,7 +79,7 @@ ItemStack* World::getNearestItemStack(const Item item, const sf::Vector2f& pos) 
     return nearest;
 } 
 
-std::unordered_set<std::string> World::getState() {
+std::unordered_set<std::string> World::getState() const {
     std::unordered_set<std::string> states;
 
     for (const ItemStack& stack : this->itemStacks) {

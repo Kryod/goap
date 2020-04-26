@@ -8,4 +8,5 @@ public:
 
     bool checkCondition() const override;
     bool perform() override;
+    bool isDone() override;
 };

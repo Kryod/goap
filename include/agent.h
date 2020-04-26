@@ -14,6 +14,10 @@ public:
     void update(float dt);
     void draw(sf::RenderTarget& target);
 
+    std::unordered_set<Action*> availableActions;
+    std::unordered_set<std::string> state;
+    std::unordered_set<std::string> goal;
+
 private:
     float x;
     float y;

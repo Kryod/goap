@@ -1,4 +1,5 @@
 #include <cmath>
+#include <iostream>
 
 #include "agent.h"
 #include "planner.h"
@@ -46,8 +47,8 @@ void Agent::moveState(Agent* agent, float dt) {
         agent->stateMachine.pop();
     } else {
         agent->stateMachine.pop(); // Move
-        agent->stateMachine.pop(); // Perform
-        agent->stateMachine.push(&idleState);
+        //agent->stateMachine.pop(); // Perform
+        //agent->stateMachine.push(&idleState);
     }
 }
 
@@ -61,18 +62,22 @@ void Agent::performActionState(Agent* agent, float dt) {
 
     Action* action = agent->currentActions.front();
     if (action->isDone()) {
+        std::cout << "Performed: " << action->name << std::endl;
         // The action is done, remove it so we can perform the next one
         agent->currentActions.pop();
+        for (auto e : action->getEffects())
+            agent->state.insert(e);
     }
 
     if (!agent->currentActions.empty()) {
         action = agent->currentActions.front();
         if (action->isInRange()) {
-            if (action->perform(dt)) {
+            action->perform(dt);
+            /*if (action->perform(dt)) {
                 // Successfully performed
                 agent->stateMachine.pop();
                 agent->stateMachine.push(&idleState);
-            }
+            }*/
         } else {
             // Get closer
             agent->stateMachine.push(&moveState);

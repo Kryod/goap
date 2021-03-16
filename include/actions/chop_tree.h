@@ -10,8 +10,4 @@ public:
     bool checkCondition(Agent* agent) override;
     bool perform(float dt) override;
     bool isDone() override;
-
-private:
-    float t;
-    float workDuration;
 };

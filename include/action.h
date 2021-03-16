@@ -1,7 +1,7 @@
 #pragma once
 
 #include <unordered_set>
-
+#include <string>
 #include "item_stack.h"
 
 class Agent;
@@ -144,4 +144,10 @@ protected:
     std::unordered_set<std::string> effects;
 
     float cost; // The cost of the action
+
+    // Current time of action
+    float t;
+
+    // Total duration of action
+    float workDuration;
 };

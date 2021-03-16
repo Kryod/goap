@@ -2,7 +2,10 @@
 #include "world.h"
 
 WoodCutting::WoodCutting(const float cost, const std::string& name)
-    : Action(cost, name) {}
+    : Action(cost, name) {
+    this->t = 0.0f;
+    this->workDuration = 1000.0f; 
+}
 
 bool WoodCutting::checkCondition(Agent* agent) {
 
@@ -13,6 +16,16 @@ bool WoodCutting::checkCondition(Agent* agent) {
            closestChoppingBlock != nullptr;
 }
 
-bool WoodCutting::perform(float dt) { return true; }
+bool WoodCutting::perform(float dt) { 
+    this->t += dt;
+    return true;
+}
 
-bool WoodCutting::isDone() { return false; }
+bool WoodCutting::isDone() {
+    bool done = this->t >= this->workDuration;
+    if (done) {
+        this->t = 0.0f;
+        this->target = nullptr;
+    }
+    return done;
+}
